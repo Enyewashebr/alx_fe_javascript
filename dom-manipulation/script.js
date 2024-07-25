@@ -164,7 +164,42 @@ function addQuote() {
   }
 }
 
+// Function to fetch quotes data from the server
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data from server');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+// Function to sync local quotes with server data
+async function syncWithServer() {
+  const serverQuotes = await fetchQuotesFromServer();
+
+  // Simple conflict resolution: Server data takes precedence
+  quotes = serverQuotes;
+
+  saveQuotes(); // Update local storage with server data
+  populateCategories(); // Update categories in the filter dropdown
+  filterQuotes(); // Filter quotes based on selected category
+}
+
 // Load quotes from local storage and initialize the application
 loadQuotes();
 populateCategories();
 filterQuotes();
+
+// Function to check for conflicting data and inform the user
+function checkForConflicts() {
+  // Compare local data with server data
+  // Notify the user if conflicts are detected
+  // Provide options for conflict resolution
+  // This can be achieved through UI elements or alerts
+}
