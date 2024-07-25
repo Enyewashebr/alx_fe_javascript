@@ -265,3 +265,17 @@ async function syncQuotes() {
     console.error('Error syncing quotes:', error);
   }
 }
+
+// Function to periodically sync local quotes with server data
+function startSyncInterval(intervalTime) {
+  // Initial sync when the interval starts
+  syncQuotes();
+
+  // Setting up periodic sync at the specified interval time
+  setInterval(() => {
+    syncQuotes();
+  }, intervalTime);
+}
+
+// Call startSyncInterval with the interval time in milliseconds (e.g., 30000 for every 30 seconds)
+startSyncInterval(30000); // Sync every 30 seconds
