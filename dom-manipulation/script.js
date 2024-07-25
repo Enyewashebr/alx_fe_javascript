@@ -1,17 +1,25 @@
 // Array to store the quotes
-let quotes = [
+const quotes = [
   {
     text: "Believe you can and you're halfway there.",
-    category: "Motivation",
+    category: "Motivational"
   },
   {
     text: "The only way to do great work is to love what you do.",
-    category: "Inspiration",
+    category: "Inspirational"
   },
   {
     text: "Happiness is not something ready-made. It comes from your own actions.",
-    category: "Happiness",
+    category: "Philosophical"
   },
+  {
+    text: "Impossible is just an opinion.",
+    category: "Motivational"
+  },
+  {
+    text: "The future belongs to those who believe in the beauty of their dreams.",
+    category: "Inspirational"
+  }
 ];
 
 // Function to display a random quote
@@ -34,7 +42,7 @@ function addQuote() {
   // Create a new quote object
   const newQuote = {
     text: newQuoteText,
-    category: newQuoteCategory,
+    category: newQuoteCategory
   };
 
   // Add the new quote to the quotes array
@@ -49,6 +57,4 @@ function addQuote() {
 }
 
 // Add event listener to the "Show New Quote" button
-document
-  .getElementById("newQuote")
-  .addEventListener("click", displayRandomQuote);
+document.getElementById("newQuote").addEventListener("click", displayRandomQuote);
