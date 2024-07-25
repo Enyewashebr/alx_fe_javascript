@@ -279,3 +279,50 @@ function startSyncInterval(intervalTime) {
 
 // Call startSyncInterval with the interval time in milliseconds (e.g., 30000 for every 30 seconds)
 startSyncInterval(30000); // Sync every 30 seconds
+
+// Function to display a notification message
+function displayNotification(message) {
+  const notificationElement = document.createElement('div');
+  notificationElement.textContent = message;
+  notificationElement.classList.add('notification');
+
+  // Add the notification to the top of the page
+  document.body.insertBefore(notificationElement, document.body.firstChild);
+
+  // Remove the notification after 3 seconds
+  setTimeout(() => {
+    notificationElement.remove();
+  }, 3000);
+}
+
+// Function to inform users about data updates or conflicts
+function notifyUser(message, type) {
+  if (type === 'update') {
+    displayNotification(`Data Updated: ${message}`);
+  } else if (type === 'conflict') {
+    displayNotification(`Conflict Resolved: ${message}`);
+  }
+}
+
+// Modify the syncQuotes function to include notifications
+async function syncQuotes() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data from server');
+    }
+    
+    const serverQuotes = await response.json();
+
+    // Simple conflict resolution: Server data takes precedence
+    quotes = serverQuotes;
+
+    saveQuotes(); // Update local storage with server data
+    populateCategories(); // Update categories in the filter dropdown
+    filterQuotes(); // Filter quotes based on selected category
+
+    notifyUser('Quotes synced with server!', 'update');
+  } catch (error) {
+    console.error('Error syncing quotes:', error);
+  }
+}
