@@ -203,3 +203,43 @@ function checkForConflicts() {
   // Provide options for conflict resolution
   // This can be achieved through UI elements or alerts
 }
+
+// Function to post new quote data to the server
+async function postQuoteToServer(newQuote) {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newQuote)
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to post data to server');
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+// Example of posting a new quote to the server
+const newQuote = {
+  text: 'Example quote text',
+  category: 'Example category'
+};
+
+postQuoteToServer(newQuote)
+  .then(data => {
+    if (data) {
+      console.log('Quote posted successfully:', data);
+      // Handle the response data as needed
+    }
+  })
+  .catch(error => {
+    console.error('Error posting quote:', error);
+  });
