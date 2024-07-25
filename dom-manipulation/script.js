@@ -243,3 +243,25 @@ postQuoteToServer(newQuote)
   .catch(error => {
     console.error('Error posting quote:', error);
   });
+// Function to synchronize local quotes with server data
+async function syncQuotes() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+    if (!response.ok) {
+      throw new Error('Failed to fetch data from server');
+    }
+    
+    const serverQuotes = await response.json();
+
+    // Simple conflict resolution: Server data takes precedence
+    quotes = serverQuotes;
+
+    saveQuotes(); // Update local storage with server data
+    populateCategories(); // Update categories in the filter dropdown
+    filterQuotes(); // Filter quotes based on selected category
+
+    console.log('Quotes synchronized successfully.');
+  } catch (error) {
+    console.error('Error syncing quotes:', error);
+  }
+}
