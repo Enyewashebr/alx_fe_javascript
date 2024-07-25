@@ -52,3 +52,12 @@ function createAddQuoteForm() {
 
 // Call the function to create the form for adding a new quote
 createAddQuoteForm();
+function displayRandomQuote() {
+  // Select a random quote from the quotes array
+  const randomIndex = Math.floor(Math.random() * quotes.length);
+  const randomQuote = quotes[randomIndex];
+
+  // Update the DOM to display the random quote
+  const quoteDisplay = document.getElementById("quoteDisplay");
+  quoteDisplay.textContent = `"${randomQuote.text}" - ${randomQuote.category}`;
+}
