@@ -38,3 +38,17 @@ document.getElementById('newQuote').addEventListener('click', showRandomQuote);
 
 // Display an initial quote when the page loads
 showRandomQuote();
+// Function to create the form for adding a new quote
+function createAddQuoteForm() {
+  const formContainer = document.createElement('div');
+  formContainer.innerHTML = `
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button onclick="addQuote()">Add Quote</button>
+  `;
+
+  document.body.appendChild(formContainer);
+}
+
+// Call the function to create the form for adding a new quote
+createAddQuoteForm();
